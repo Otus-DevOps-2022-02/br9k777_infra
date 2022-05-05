@@ -1,0 +1,50 @@
+#cloud-config
+
+disable_root: true
+name: reddit-app
+timezone: Europe/Moscow
+zone_id: ru-central1-a
+platform_id: standard-v2
+
+users:
+  - name: yc-user
+    groups: sudo
+    shell: /bin/bash
+    sudo: ALL=(ALL) NOPASSWD:ALL
+    ssh_authorized_keys:
+      - ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABgQCw8jekAG6B24hsqTjpICTD+jsagmFwBXQjk9Sol/aQOcjNPTAZZpGMWlObcnprsax+2W9Cv1WYJOHPu4oCabS9JdtP/uq/zKxMrj3kNegMvikxUsgWaeuQwwhkuZss1NLg5efGnr9X3t+tXJnKJ127MuxEuF4vpnYPhAGoX4KqvSPRjZGqtXi2ZRESHYlqxafgyzKQuEvFyX7LUbUN/DKZL3zqj1n3AjinHcgYtH64650pvUtmKyUtyaS3fkzpEVjTC7/WKdsZ0t+lFJ7oUZ1KXXU9gJp3pVVPn38m3zCN4lRZLNEbuDKzUhlzbJl3UsTmSfp1m2PnjHAAV97SdRPOu2V03zp3x8qphQacQazhnIh8GuywmcrhP49OuWo98ZRs+G+mGCxBaVvMqBfRTq4QZiihNTLTij1cGblf571y/Qha77SXcsvYHoTmc3XiwWgELUwNvaq9JzMFC6EXqHVbgRDeoS+VAu8IPefb5hLbhXRijd5u6Q866eDVvIKUlQk= appuser
+
+
+resources:
+  memory: 4294967296
+  cores: 2
+  core_fraction: 20
+
+network_interfaces:
+  - index: 0
+    primary_v4_address:
+      address: 10.128.0.33
+      one_to_one_nat:
+        address: 51.250.65.124
+        ip_version: IPV4
+
+network_settings:
+  type: STANDARD
+
+
+packages:
+  - git
+  - ruby-full
+  - ruby-bundler
+  - build-essential
+
+runcmd:
+  - [ wget, "https://raw.githubusercontent.com/Otus-DevOps-2022-02/br9k777_infra/cloud-testapp/install_ruby.sh" ]
+  - [ bash,  ./install_ruby.sh ]
+  - [ wget, "https://raw.githubusercontent.com/Otus-DevOps-2022-02/br9k777_infra/cloud-testapp/install_mongodb.sh" ]
+  - [ bash, ./install_mongodb.sh ]
+  - [ wget, "https://raw.githubusercontent.com/Otus-DevOps-2022-02/br9k777_infra/cloud-testapp/deploy.sh" ]
+  - [ bash,  ./deploy.sh ]
+  - [ rm, ./install_ruby.sh,  ./install_mongodb.sh, ./deploy.sh ]
+
+final_message: "puma setup after $UPTIME seconds"

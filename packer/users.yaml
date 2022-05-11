@@ -1,0 +1,16 @@
+#cloud-config
+
+users:
+  - name: appuser
+    groups: sudo
+    shell: /bin/bash
+    sudo: ALL=(ALL) NOPASSWD:ALL
+    ssh_authorized_keys:
+      - ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABgQCw8jekAG6B24hsqTjpICTD+jsagmFwBXQjk9Sol/aQOcjNPTAZZpGMWlObcnprsax+2W9Cv1WYJOHPu4oCabS9JdtP/uq/zKxMrj3kNegMvikxUsgWaeuQwwhkuZss1NLg5efGnr9X3t+tXJnKJ127MuxEuF4vpnYPhAGoX4KqvSPRjZGqtXi2ZRESHYlqxafgyzKQuEvFyX7LUbUN/DKZL3zqj1n3AjinHcgYtH64650pvUtmKyUtyaS3fkzpEVjTC7/WKdsZ0t+lFJ7oUZ1KXXU9gJp3pVVPn38m3zCN4lRZLNEbuDKzUhlzbJl3UsTmSfp1m2PnjHAAV97SdRPOu2V03zp3x8qphQacQazhnIh8GuywmcrhP49OuWo98ZRs+G+mGCxBaVvMqBfRTq4QZiihNTLTij1cGblf571y/Qha77SXcsvYHoTmc3XiwWgELUwNvaq9JzMFC6EXqHVbgRDeoS+VAu8IPefb5hLbhXRijd5u6Q866eDVvIKUlQk= appuser
+
+runcmd:
+  - [ wget, "https://raw.githubusercontent.com/Otus-DevOps-2022-02/br9k777_infra/cloud-testapp/deploy.sh" ]
+  - [ bash,  ./deploy.sh ]
+  - [ rm, ./deploy.sh ]
+
+final_message: "puma setup after $UPTIME seconds"

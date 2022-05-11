@@ -1,0 +1,30 @@
+{
+  "builders": [
+    {
+      "type": "yandex",
+      "service_account_key_file": "{{user `yandex_service_account_key_file`}}",
+      "folder_id": "{{user `yandex_folder_id`}}",
+      "subnet_id": "{{user `yandex_subnet_id`}}",
+      "zone":"{{user `server_zone`}}",
+      "use_ipv4_nat": true,
+      "source_image_family": "ubuntu-1604-lts",
+      "image_name": "reddit-base-{{timestamp}}",
+      "image_family": "reddit-base",
+      "image_description": "my custom ubuntu with reddit-base, homework packer",
+      "ssh_username": "ubuntu",
+      "platform_id": "standard-v1"
+    }
+  ],
+  "provisioners": [
+    {
+      "type": "shell",
+      "script": "scripts/install_ruby.sh",
+      "execute_command": "sudo {{.Path}}"
+    },
+    {
+      "type": "shell",
+      "script": "scripts/install_mongodb.sh",
+      "execute_command": "sudo {{.Path}}"
+    }
+  ]
+}

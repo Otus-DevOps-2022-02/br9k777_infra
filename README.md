@@ -1,3 +1,16 @@
+# Занятие 7. Подготовка образов с помощью Packer
+### ДЗ
+всё сделанное  находится в папке packer
+
+создать образ
+`packer validate -var-file="variables.json"  ./ubuntu16.json`
+
+создать VM `./yc_metadata_from_file.sh`
+
+проверял по
+ip_for_packer_homework=51.250.65.124
+port_for_packer_homework = 9292
+
 # Занятие 6. Основные сервисы Yandex Cloud
 ### Дополнительное задача ДЗ №4
 

@@ -1,0 +1,9 @@
+#cloud-config
+
+network_interfaces:
+  - index: 0
+    primary_v4_address:
+      address: 10.128.0.7
+      one_to_one_nat:
+        address: 51.250.65.124
+        ip_version: IPV4
